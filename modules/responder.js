@@ -15,7 +15,7 @@ export async function responder(data) {
     return result.respuesta;
   } catch (error) {
     console.error("❌ Error al generar respuesta:", error);
-    return "Error al generar respuesta";
+    return "Lo siento, no pude generar una respuesta en este momento. 😕";
   }
 }
 
@@ -27,6 +27,15 @@ export async function generarRespuesta(empresaId, mensajeUsuario) {
     return "Error: empresaId inválido";
   }
 
-  const data = { empresaId: id, mensajeUsuario };
+  if (!mensajeUsuario || typeof mensajeUsuario !== 'string' || mensajeUsuario.trim().length < 2) {
+    console.error("❌ mensajeUsuario inválido:", mensajeUsuario);
+    return "Error: mensajeUsuario inválido";
+  }
+
+  const data = {
+    empresaId: id,
+    mensajeUsuario: mensajeUsuario.trim()
+  };
+
   return await responder(data);
 }

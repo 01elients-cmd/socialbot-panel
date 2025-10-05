@@ -30,15 +30,15 @@ formEmpresa.addEventListener('submit', async (e) => {
 // 🔹 Generar respuesta
 btnGenerar.addEventListener('click', async () => {
   const empresaId = empresaSelect.value;
+  const mensajeInput = document.getElementById('mensajeUsuario');
+  const mensaje = mensajeInput?.value?.trim();
+  const loader = document.getElementById('loader');
+  const feedback = document.getElementById('mensajeFeedback');
+
   if (!empresaId || empresaId === 'undefined') {
     console.error("❌ empresaId inválido:", empresaId);
     return;
   }
-
-  const mensajeInput = document.getElementById('mensajeUsuario');
-  const mensaje = mensajeInput.value.trim();
-  const feedback = document.getElementById('mensajeFeedback');
-  const loader = document.getElementById('loader');
 
   if (!mensaje || mensaje.length < 2) {
     feedback.style.display = 'block';
@@ -56,6 +56,7 @@ btnGenerar.addEventListener('click', async () => {
 
   await actualizarInteracciones();
 });
+
 
 
 // 🔹 Crear publicación

@@ -8,11 +8,6 @@
 </head>
 <body>
   <h1>SocialBot 🧠</h1>
-
-<textarea id="mensajeUsuario" placeholder="Mensaje del usuario" required minlength="2"></textarea>
-<small id="mensajeFeedback" style="color: red; display: none;">Escribe al menos 2 caracteres</small>
-
-
   <section id="empresas">
     <h2>Empresas</h2>
     <ul id="listaEmpresas"></ul>
@@ -25,7 +20,8 @@
   <section id="responder">
     <h2>Generar respuesta</h2>
     <select id="empresaSelect"></select>
-    <textarea id="mensajeUsuario" placeholder="Mensaje del usuario"></textarea>
+    <textarea id="mensajeUsuario" placeholder="Mensaje del usuario" required minlength="2"></textarea>
+<small id="mensajeFeedback" style="color: red; display: none;">Escribe al menos 2 caracteres</small>
     <button id="btnGenerar">Generar</button>
     <p id="respuestaBot"></p>
   </section>
