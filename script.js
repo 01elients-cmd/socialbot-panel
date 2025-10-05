@@ -5,25 +5,16 @@ import { cargarInteracciones } from './modules/interacciones.js';
 import { cargarPublicaciones, crearPublicacion } from './modules/publicaciones.js';
 import { cargarBranding, guardarBranding } from './modules/brandingPanel.js';
 
-// 🔹 Elementos del DOM
 const empresaSelect = document.getElementById('empresaSelect');
 const formEmpresa = document.getElementById('formEmpresa');
 const formPublicacion = document.getElementById('formPublicacion');
 const btnGenerar = document.getElementById('btnGenerar');
-const formBranding = document.getElementById('formBranding');
-const brandingFields = {
-  tono: document.getElementById('tono'),
-  emoji: document.getElementById('emoji'),
-  firma: document.getElementById('firma'),
-  color: document.getElementById('color')
-};
 
-// 🔹 Inicializar panel
+// 🔹 Inicializar
 async function init() {
   await cargarEmpresasEnSelect();
   await actualizarInteracciones();
   await actualizarPublicaciones();
-  await actualizarBranding();
 }
 
 // 🔹 Crear empresa
@@ -143,42 +134,4 @@ async function actualizarPublicaciones() {
   });
 }
 
-// 🔹 Actualizar branding
-async function actualizarBranding() {
-  const empresaId = empresaSelect.value;
-  if (!empresaId || empresaId === 'undefined') return;
-
-  try {
-    const branding = await cargarBranding(empresaId);
-    brandingFields.tono.value = branding.tono || '';
-    brandingFields.emoji.value = branding.emoji || '';
-    brandingFields.firma.value = branding.firma || '';
-    brandingFields.color.value = branding.color || '';
-  } catch (error) {
-    console.error("❌ Error al cargar branding:", error);
-  }
-}
-
-// 🔹 Guardar branding
-formBranding.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const empresaId = empresaSelect.value;
-  if (!empresaId || empresaId === 'undefined') return;
-
-  const branding = {
-    tono: brandingFields.tono.value,
-    emoji: brandingFields.emoji.value,
-    firma: brandingFields.firma.value,
-    color: brandingFields.color.value
-  };
-
-  try {
-    await guardarBranding(empresaId, branding);
-    alert("✅ Branding guardado");
-  } catch (error) {
-    console.error("❌ Error al guardar branding:", error);
-  }
-});
-
-// 🔹 Iniciar todo
 init();
