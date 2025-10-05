@@ -39,6 +39,11 @@ btnGenerar.addEventListener('click', async () => {
   loader.style.display = 'block';
 
   const mensaje = document.getElementById('mensajeUsuario').value.trim();
+  if (!mensaje || mensaje.length === 0) {
+  alert("⚠️ Escribe un mensaje antes de generar respuesta");
+  loader.style.display = 'none';
+  return;
+}
   const respuesta = await generarRespuesta(empresaId, mensaje);
 
   document.getElementById('respuestaBot').textContent = respuesta;
