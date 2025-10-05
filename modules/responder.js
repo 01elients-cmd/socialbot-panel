@@ -1,14 +1,22 @@
+import { API_BASE } from './config.js';
+
 export async function responder(data) {
-  console.log("Body que se envía:", data);
+  console.log("📤 Body que se envía:", data);
 
-  const res = await fetch("http://localhost:5000/api/respuesta", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
+  try {
+    const res = await fetch(`${API_BASE}/api/respuesta`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-  const result = await res.json();
-  return result.respuesta;
+    if (!res.ok) throw new Error('Error al generar respuesta');
+    const result = await res.json();
+    return result.respuesta;
+  } catch (error) {
+    console.error("❌ Error al generar respuesta:", error);
+    return "Error al generar respuesta";
+  }
 }
 
 export async function generarRespuesta(empresaId, mensajeUsuario) {
@@ -22,5 +30,3 @@ export async function generarRespuesta(empresaId, mensajeUsuario) {
   const data = { empresaId: id, mensajeUsuario };
   return await responder(data);
 }
-
-

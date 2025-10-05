@@ -1,5 +1,12 @@
+import { API_BASE } from './config.js';
+
 export async function cargarInteracciones(empresaId) {
-  const res = await fetch(`http://localhost:5000/api/interacciones/${empresaId}`);
-  const interacciones = await res.json();
-  return interacciones;
+  try {
+    const res = await fetch(`${API_BASE}/api/interacciones/${empresaId}`);
+    if (!res.ok) throw new Error('Error al cargar interacciones');
+    return await res.json();
+  } catch (error) {
+    console.error('Error al obtener interacciones:', error);
+    return [];
+  }
 }
