@@ -35,22 +35,28 @@ btnGenerar.addEventListener('click', async () => {
     return;
   }
 
+  const mensajeInput = document.getElementById('mensajeUsuario');
+  const mensaje = mensajeInput.value.trim();
+  const feedback = document.getElementById('mensajeFeedback');
   const loader = document.getElementById('loader');
+
+  if (!mensaje || mensaje.length < 2) {
+    feedback.style.display = 'block';
+    loader.style.display = 'none';
+    return;
+  } else {
+    feedback.style.display = 'none';
+  }
+
   loader.style.display = 'block';
 
-  const mensaje = document.getElementById('mensajeUsuario').value.trim();
-  if (!mensaje || mensaje.length === 0) {
-  alert("⚠️ Escribe un mensaje antes de generar respuesta");
-  loader.style.display = 'none';
-  return;
-}
   const respuesta = await generarRespuesta(empresaId, mensaje);
-
   document.getElementById('respuestaBot').textContent = respuesta;
   loader.style.display = 'none';
 
   await actualizarInteracciones();
 });
+
 
 // 🔹 Crear publicación
 formPublicacion.addEventListener('submit', async (e) => {
