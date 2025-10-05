@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SocialBot Panel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>SocialBot 🧠</h1>
+
+  <section id="empresas">
+    <h2>Empresas</h2>
+    <ul id="listaEmpresas"></ul>
+    <form id="formEmpresa">
+      <input type="text" name="nombre" placeholder="Nombre de empresa" required />
+      <button type="submit">Crear empresa</button>
+    </form>
+  </section>
+
+  <section id="responder">
+    <h2>Generar respuesta</h2>
+    <select id="empresaSelect"></select>
+    <textarea id="mensajeUsuario" placeholder="Mensaje del usuario"></textarea>
+    <button id="btnGenerar">Generar</button>
+    <p id="respuestaBot"></p>
+  </section>
+
+  <section id="interacciones">
+    <h2>Historial de Interacciones</h2>
+    <ul id="listaInteracciones"></ul>
+  </section>
+
+  <section id="publicaciones">
+    <h2>Publicaciones</h2>
+    <ul id="listaPublicaciones"></ul>
+    <form id="formPublicacion">
+      <input type="date" name="fecha" required />
+      <input type="text" name="plataforma" placeholder="Plataforma" required />
+      <textarea name="contenido" placeholder="Contenido" required></textarea>
+      <button type="submit">Crear publicación</button>
+    </form>
+  </section>
+<div id="loader" style="display:none;">
+  <p style="text-align:center; color:var(--accent); font-size:1.2em;">Generando respuesta...</p>
+</div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
+
