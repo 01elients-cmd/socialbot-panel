@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SocialBot — Panel de control para gestión de respuestas IA en redes sociales" />
+  <title>SocialBot — Panel de Control</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🧠</span>
+        <span class="logo-text">SocialBot</span>
+        <span class="logo-badge">v1.1</span>
+      </div>
+      <div class="status-pill" id="statusPill">
+        <span class="status-dot"></span>
+        <span id="statusText">Conectando...</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-grid">
+
+    <!-- ── Columna izquierda ── -->
+    <aside class="sidebar">
+
+      <!-- Empresas -->
+      <section class="card" id="empresas">
+        <div class="card-header">
+          <h2>🏢 Empresas</h2>
+          <span class="badge" id="badgeEmpresas">0</span>
+        </div>
+        <ul id="listaEmpresas" class="item-list"></ul>
+        <form id="formEmpresa" class="inline-form" autocomplete="off">
+          <input type="text" name="nombre" id="inputNombreEmpresa" placeholder="Nombre de empresa" required maxlength="80" />
+          <button type="submit" class="btn btn-primary">+ Crear</button>
+        </form>
+      </section>
+
+      <!-- Branding rápido -->
+      <section class="card" id="branding">
+        <div class="card-header">
+          <h2>🎨 Branding</h2>
+        </div>
+        <div class="branding-grid">
+          <label>Empresa activa
+            <select id="empresaSelect" class="select-full"></select>
+          </label>
+          <label>Tono de voz
+            <select id="brandTono" class="select-full">
+              <option value="amigable">😊 Amigable</option>
+              <option value="profesional">💼 Profesional</option>
+              <option value="neutral" selected>🤖 Neutral</option>
+              <option value="divertido">🎉 Divertido</option>
+              <option value="empático">🙏 Empático</option>
+            </select>
+          </label>
+          <label>Emoji principal
+            <input type="text" id="brandEmoji" maxlength="4" placeholder="🤖" />
+          </label>
+          <label>Firma
+            <input type="text" id="brandFirma" placeholder="—Equipo acme" maxlength="60" />
+          </label>
+          <label>Color de marca
+            <input type="color" id="brandColor" value="#ff0000" />
+          </label>
+        </div>
+        <button id="btnGuardarBranding" class="btn btn-secondary btn-block">💾 Guardar branding</button>
+        <p id="brandingStatus" class="status-msg" aria-live="polite"></p>
+      </section>
+
+    </aside>
+
+    <!-- ── Columna derecha ── -->
+    <div class="content">
+
+      <!-- Generar respuesta -->
+      <section class="card" id="responder">
+        <div class="card-header">
+          <h2>⚡ Generar respuesta IA</h2>
+        </div>
+        <textarea id="mensajeUsuario" placeholder="Escribe aquí el mensaje del cliente…" rows="3" maxlength="1000"></textarea>
+        <small id="charCount" class="char-count">0 / 1000</small>
+        <small id="mensajeFeedback" class="feedback-error" aria-live="polite" style="display:none;">Escribe al menos 2 caracteres</small>
+        <div class="btn-row">
+          <button id="btnGenerar" class="btn btn-accent">🚀 Generar respuesta</button>
+          <button id="btnCopiar" class="btn btn-ghost" title="Copiar respuesta" style="display:none;">📋 Copiar</button>
+        </div>
+
+        <!-- Loader -->
+        <div id="loader" class="loader" style="display:none;">
+          <div class="spinner"></div>
+          <span>Generando respuesta…</span>
+        </div>
+
+        <!-- Respuesta -->
+        <div id="respuestaBotContainer" class="response-box" style="display:none;">
+          <p id="respuestaBot"></p>
+        </div>
+      </section>
+
+      <!-- Historial de interacciones -->
+      <section class="card" id="interacciones">
+        <div class="card-header">
+          <h2>📊 Historial de interacciones</h2>
+          <span class="badge" id="badgeInteracciones">0</span>
+        </div>
+        <ul id="listaInteracciones" class="item-list timeline"></ul>
+        <p id="emptyInteracciones" class="empty-state">Sin interacciones aún.</p>
+      </section>
+
+      <!-- Publicaciones -->
+      <section class="card" id="publicaciones">
+        <div class="card-header">
+          <h2>📅 Publicaciones</h2>
+          <span class="badge" id="badgePublicaciones">0</span>
+        </div>
+        <ul id="listaPublicaciones" class="item-list"></ul>
+        <p id="emptyPublicaciones" class="empty-state">Sin publicaciones aún.</p>
+        <details class="collapsible">
+          <summary>+ Nueva publicación</summary>
+          <form id="formPublicacion" class="pub-form" autocomplete="off">
+            <label>Fecha
+              <input type="date" name="fecha" required />
+            </label>
+            <label>Plataforma
+              <select name="plataforma" required>
+                <option value="Instagram">📸 Instagram</option>
+                <option value="TikTok">🎵 TikTok</option>
+                <option value="Twitter">🐦 Twitter / X</option>
+                <option value="Facebook">👤 Facebook</option>
+                <option value="LinkedIn">💼 LinkedIn</option>
+              </select>
+            </label>
+            <label>Contenido
+              <textarea name="contenido" placeholder="Redacta el post…" required maxlength="2000" rows="3"></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-block">📤 Crear publicación</button>
+          </form>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Toast notifications -->
+  <div id="toast" class="toast" aria-live="assertive"></div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
